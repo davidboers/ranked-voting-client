@@ -20,6 +20,16 @@ In `index.html`:
 </ol>
 ```
 
+If you want to include extra information about candidates, you can do this:
+
+```html
+<li class="candidate">
+  <!-- Candidate's name must be in a ".candidate-name" element. -->
+  <div class="candidate-name">Bob</div>
+  <div class="candidate-party">Blue Party</div>
+</li>
+```
+
 You will also need to create a secure password. This password will allow you to download the list of cast ballots after the election is over. You can use any combination of letters, numbers, and symbols. Users have to manually input passwords, so unless they're Ethan Hunt, you should be fine with a moderately strong password. You can use the `random-password.c` script to generate one. To execute with [GCC](https://gcc.gnu.org/):
 
 ```shell
