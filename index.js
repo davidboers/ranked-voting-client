@@ -8,6 +8,7 @@ const candidates = Array.from(items).map((item) => item.textContent);
 const no_candidates = candidates.length;
 const no_seats = document.getElementById("seats").textContent;
 let out_file = `${no_candidates} ${no_seats}\n`;
+let blank_ballots = 0;
 
 function openBallot() {
     menu.style.display = "none";
@@ -43,8 +44,10 @@ function verify() {
         const electionName =
             document.getElementById("electionName").textContent;
         out_file += `"${electionName}"\n`;
+        out_file += `# Blank ballots: ${blank_ballots}`;
         downloadTextAsFile(out_file, "votes.blt");
         out_file = `${no_candidates} ${no_seats}\n`;
+        blank_ballots = 0;
     } else {
         login.style.display = "none";
         input.value = "";
@@ -58,6 +61,15 @@ function submitVote() {
         .join(" ")} 0\n`;
     out_file += vote;
 
+    returnToMenu();
+}
+
+function submitBlank() {
+    blank_ballots += 1;
+    returnToMenu();
+}
+
+function returnToMenu() {
     document.getElementById("key").value = "";
     login.style.display = "none";
     menu.style.display = "block";
