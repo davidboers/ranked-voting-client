@@ -23,8 +23,11 @@
         display: block;
       }
       .submit {
-        display: inline-block;
         padding: 5px 10px;
+      }
+      .button-set,
+      .submit {
+        display: inline-block;
       }
     </style>
   </head>
@@ -66,10 +69,17 @@
         <li class="candidate">Jeremy</li>
       </ol>
 
-      <button onclick="submitVote()">Submit Vote</button>
-      <button onclick="submitBlank()">Submit Blank Ballot</button>
-
-      <p id="responseMessage" style="color: green"></p>
+      <button onclick="submitVote()" class="button-set">Submit Vote</button>
+      <button onclick="submitBlank()" class="button-set">
+        Submit Blank Ballot
+      </button>
+      <button
+        onclick="returnToMenu()"
+        class="button-set"
+        style="background-color: red"
+      >
+        Cancel
+      </button>
     </div>
 
     <script src="index.js"></script>
