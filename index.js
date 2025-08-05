@@ -23,7 +23,10 @@ function openBallot() {
     ballot.style.display = "block";
 
     let scrambled = Array.from(candidates);
-    scrambled.sort((a, b) => Math.random() - Math.random());
+    for (let i = 0; i < scrambled.length; i++) {
+        scrambled.sort(() => Math.random() - 0.5);
+    }
+    
     for (let i = 0; i < scrambled.length; i++) {
         items[i].innerHTML = scrambled[i];
     }
