@@ -7,7 +7,7 @@ const candidates = Array.from(items).map((item) => item.textContent);
 
 const no_candidates = candidates.length;
 const no_seats = document.getElementById("seats").textContent;
-let out_file = `${no_candidates} ${no_seats}\n`;
+let votes = `${no_candidates} ${no_seats}\n`;
 let blank_ballots = 0;
 
 function openBallot() {
@@ -36,6 +36,7 @@ function verify() {
     const key = "password"; // Insert generated password here
     const input = document.getElementById("key");
     const guess = input.value;
+    let out_file = votes;
     if (key === guess) {
         out_file += "0\n";
         for (let candidate of candidates) {
@@ -46,8 +47,6 @@ function verify() {
         out_file += `"${electionName}"\n`;
         out_file += `# Blank ballots: ${blank_ballots}`;
         downloadTextAsFile(out_file, "votes.blt");
-        out_file = `${no_candidates} ${no_seats}\n`;
-        blank_ballots = 0;
     } else {
         login.style.display = "none";
         input.value = "";
@@ -65,7 +64,7 @@ function submitVote() {
     const vote = `1 ${ranked
         .map((c) => candidates.indexOf(c) + 1)
         .join(" ")} 0\n`;
-    out_file += vote;
+    votes += vote;
 
     returnToMenu();
 }
