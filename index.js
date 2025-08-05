@@ -54,7 +54,13 @@ function verify() {
     }
 }
 
+const confirmation_message = "Please confirm you which to cast your ballot.";
+
 function submitVote() {
+    if (!confirm(confirmation_message)) {
+        return;
+    }
+
     const ranked = Array.from(items).map((item) => item.textContent);
     const vote = `1 ${ranked
         .map((c) => candidates.indexOf(c) + 1)
@@ -65,6 +71,10 @@ function submitVote() {
 }
 
 function submitBlank() {
+    if (!confirm(confirmation_message)) {
+        return;
+    }
+
     blank_ballots += 1;
     returnToMenu();
 }
