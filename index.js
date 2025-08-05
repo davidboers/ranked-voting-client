@@ -54,7 +54,7 @@ function verify() {
     }
 }
 
-const confirmation_message = "Please confirm you which to cast your ballot.";
+const confirmation_message = "Please confirm you wish to cast your ballot.";
 
 function submitVote() {
     if (!confirm(confirmation_message)) {
