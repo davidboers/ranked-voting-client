@@ -16,6 +16,9 @@ let blank_ballots = 0;
 var gong = new Audio("gong-3-232439.mp3");
 
 function openBallot() {
+    gong.pause();
+    gong.currentTime = 0;
+    
     menu.style.display = "none";
     ballot.style.display = "block";
 
