@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <style>
+      body {
+        font-family: Arial;
+        padding: 20px;
+      }
+      .candidate {
+        margin: 8px 0;
+        padding: 10px;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        cursor: grab;
+        width: 25%;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        display: block;
+      }
+      .submit {
+        display: inline-block;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu">
+      <button
+        style="background-color: green; color: white"
+        onclick="openBallot()"
+      >
+        Open Ballot
+      </button>
+      <button onclick="openLogin()">Administrative Login</button>
+      <div id="adminLogin" style="display: none">
+        <label for="key">Enter Key:</label>
+        <input type="password" id="key" />
+        <button class="submit" onclick="verify()">Submit</button>
+      </div>
+    </div>
+    <div id="ballot" style="display: none">
+      <h2 id="electionName">STV Election</h2>
+      <span style="display: none" id="seats">4</span>
+      <p>
+        Drag and drop to rank the candidates in the order of your choice. The
+        top candidate should be your first preference, and the bottom candidate
+        should be your last preference.
+      </p>
+      <ol id="candidateList">
+        <li class="candidate">Bob</li>
+        <li class="candidate">George</li>
+        <li class="candidate">Quincy</li>
+        <li class="candidate">Alex</li>
+        <li class="candidate">Michelle</li>
+        <li class="candidate">Gregory</li>
+        <li class="candidate">Omar</li>
+        <li class="candidate">Rémy</li>
+        <li class="candidate">Peter</li>
+        <li class="candidate">Lisa</li>
+        <li class="candidate">Claire</li>
+        <li class="candidate">Jeremy</li>
+      </ol>
+
+      <button onclick="submitVote()">Submit Vote</button>
+
+      <p id="responseMessage" style="color: green"></p>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

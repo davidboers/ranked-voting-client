@@ -1,0 +1,79 @@
+const menu = document.getElementById("menu");
+const ballot = document.getElementById("ballot");
+const login = document.getElementById("adminLogin");
+
+const items = document.querySelectorAll(".candidate");
+const candidates = Array.from(items).map((item) => item.textContent);
+
+const no_candidates = candidates.length;
+const no_seats = document.getElementById("seats").textContent;
+let out_file = `${no_candidates} ${no_seats}\n`;
+
+function openBallot() {
+    menu.style.display = "none";
+    ballot.style.display = "block";
+
+    let scrambled = Array.from(candidates);
+    scrambled.sort((a, b) => Math.random() - Math.random());
+    for (let i = 0; i < scrambled.length; i++) {
+        items[i].textContent = scrambled[i];
+    }
+
+    const sortable = new Sortable(
+        document.getElementById("candidateList"),
+        {
+            animation: 150,
+        }
+    );
+}
+
+function openLogin() {
+    document.getElementById("adminLogin").style.display = "block";
+}
+
+function verify() {
+    const key = "password"; // Insert generated password here
+    const input = document.getElementById("key");
+    const guess = input.value;
+    if (key === guess) {
+        out_file += "0\n";
+        for (let candidate of candidates) {
+            out_file += `"${candidate}"\n`;
+        }
+        const electionName =
+            document.getElementById("electionName").textContent;
+        out_file += `"${electionName}"\n`;
+        downloadTextAsFile(out_file, "votes.blt");
+        out_file = `${no_candidates} ${no_seats}\n`;
+    } else {
+        login.style.display = "none";
+        input.value = "";
+    }
+}
+
+function submitVote() {
+    const ranked = Array.from(items).map((item) => item.textContent);
+    const vote = `1 ${ranked
+        .map((c) => candidates.indexOf(c) + 1)
+        .join(" ")} 0\n`;
+    out_file += vote;
+
+    document.getElementById("key").value = "";
+    login.style.display = "none";
+    menu.style.display = "block";
+    ballot.style.display = "none";
+}
+
+function downloadTextAsFile(content, filename, mimeType = "text/plain") {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+}
