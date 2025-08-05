@@ -56,6 +56,8 @@ When the voter is done ordering the candidates, they should click the `Submit Vo
 
 Because the drag-and-drop function prevents miscast ballots, it eliminates the right of the voter to deliberately spoil their ballot in protest. To compensate for this, the client provides an option to cast a blank ballot. Blank ballots are tallied, but do not affect the election. To disable this option, you can insert the following CSS node in the `<style>...</style>` section:
 
+When a vote is cast, a gong sound plays to prevent double voting. Sound Effect by <a href="https://pixabay.com/users/lazychillzone-40482846/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=232439">Lazy Chill Zone</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=232439">Pixabay</a>.
+
 ```CSS
 #submit-blank {
     display: none;

@@ -13,6 +13,8 @@ const no_seats = document.getElementById("seats").textContent;
 let votes = `${no_candidates} ${no_seats}\n`;
 let blank_ballots = 0;
 
+var gong = new Audio("gong-3-232439.mp3");
+
 function openBallot() {
     menu.style.display = "none";
     ballot.style.display = "block";
@@ -69,7 +71,7 @@ function submitVote() {
         .join(" ")} 0\n`;
     votes += vote;
 
-    returnToMenu();
+    completeBallot();
 }
 
 function submitBlank() {
@@ -78,6 +80,11 @@ function submitBlank() {
     }
 
     blank_ballots += 1;
+    completeBallot();
+}
+
+function completeBallot() {
+    gong.play();
     returnToMenu();
 }
 
