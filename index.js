@@ -49,7 +49,7 @@ function openBallot() {
         x_element.className = 'delete';
         x_element.addEventListener('click', function () {
             unranked.innerHTML += `<li class="candidate">${items[i].innerHTML}</li>`;
-            Array.from(unranked.children).forEach(child => {
+            Array.from(unranked.querySelectorAll('li.candidate')).forEach(child => {
                 child.addEventListener('click', function () {
                     document.querySelector('#candidateList').innerHTML += `<li class="candidate">${child.innerHTML}</li>`;
                     child.remove();
