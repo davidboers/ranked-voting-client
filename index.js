@@ -2,11 +2,15 @@ const menu = document.getElementById("menu");
 const ballot = document.getElementById("ballot");
 const login = document.getElementById("adminLogin");
 
-const items = document.querySelectorAll(".candidate");
-const candidates = Array.from(items).map((item) => item.innerHTML);
-const candidate_names = Array.from(items).map((item) => (item.children.length == 0)
-    ? item.textContent
-    : item.querySelector('.candidate-name').textContent);
+function candidate_name(item) {
+    return (!item.querySelector('.candidate-name'))
+        ? item.innerText
+        : item.querySelector('.candidate-name').textContent
+}
+
+let items = document.querySelectorAll(".candidate");
+const candidates = Array.from(items).map((item) => item.innerText);
+const candidate_names = Array.from(items).map(candidate_name);
 
 const no_candidates = candidates.length;
 const no_seats = document.getElementById("seats").textContent;
@@ -22,13 +26,39 @@ function openBallot() {
     menu.style.display = "none";
     ballot.style.display = "block";
 
+    const unranked = document.querySelector('#unranked');
+    for (let unranked_candidate of unranked.querySelectorAll('li.candidate')) {
+        if (unranked_candidate.querySelector('.delete')) {
+            unranked_candidate.querySelector('.delete').remove();
+        }
+        document.querySelector('#candidateList').innerHTML += `<li class="candidate">${unranked_candidate.innerHTML}</li>`;
+        unranked.removeChild(unranked_candidate);
+    }
+    items = document.querySelectorAll(".candidate");
+
     let scrambled = Array.from(candidates);
     for (let i = 0; i < scrambled.length; i++) {
         scrambled.sort(() => Math.random() - 0.5);
     }
-    
+
     for (let i = 0; i < scrambled.length; i++) {
         items[i].innerHTML = scrambled[i];
+
+        const x_element = document.createElement('span');
+        x_element.textContent = 'X';
+        x_element.className = 'delete';
+        x_element.addEventListener('click', function () {
+            unranked.innerHTML += `<li class="candidate">${items[i].innerHTML}</li>`;
+            Array.from(unranked.children).forEach(child => {
+                child.addEventListener('click', function () {
+                    document.querySelector('#candidateList').innerHTML += `<li class="candidate">${child.innerHTML}</li>`;
+                    child.remove();
+                });
+            });
+            items[i].remove();
+        });
+
+        items[i].appendChild(x_element);
     }
 
     const sortable = new Sortable(
@@ -71,11 +101,10 @@ function submitVote() {
         return;
     }
 
-    const ranked = Array.from(items).map((item) => item.innerHTML);
-    const vote = `1 ${ranked
-        .map((c) => candidates.indexOf(c) + 1)
-        .join(" ")} 0\n`;
-    votes += vote;
+    const ranked = Array.from(document.querySelectorAll('#candidateList .candidate')).map(candidate_name);
+    console.log(ranked);
+    const vote = ranked.map((c) => candidate_names.indexOf(c) + 1);
+    votes += `1 ${vote.join(" ")} 0\n`;
 
     completeBallot();
 }

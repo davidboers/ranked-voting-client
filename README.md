@@ -50,7 +50,7 @@ All voters vote on the same device. `index.html` should be open in a web browser
 
 # Voting process
 
-Voters should start the voting process by clicking the `Open Ballot` button. They can then drag-and-drop the name of each candidate so that the list of candidates reflects their preferred ordering. Currently, only ["full-preferential voting"](https://en.wikipedia.org/wiki/Optional_preferential_voting) is supported. The ballot utilizes the [Robson Rotation](https://en.wikipedia.org/wiki/Robson_Rotation), randomly ordering the list of candidates on each ballot to prevent the ordering from influencing the election.
+Voters should start the voting process by clicking the `Open Ballot` button. They can then drag-and-drop the name of each candidate so that the list of candidates reflects their preferred ordering. The ballot utilizes the [Robson Rotation](https://en.wikipedia.org/wiki/Robson_Rotation), randomly ordering the list of candidates on each ballot to prevent the ordering from influencing the election.
 
 When the voter is done ordering the candidates, they should click the `Submit Vote` button. A popup will ask the voter to confirm they wish to cast their ballot. If the `Open Ballot` button was clicked by mistake, the user can use the `Cancel` option to exit without casting a ballot.
 

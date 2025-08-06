@@ -8,6 +8,7 @@
         font-family: Arial;
         padding: 20px;
       }
+
       .candidate {
         margin: 8px 0;
         padding: 10px;
@@ -16,6 +17,16 @@
         cursor: grab;
         width: 25%;
       }
+      .delete {
+        color: red;
+        display: none;
+        position: absolute;
+        left: 25%;
+      }
+      .candidate:hover .delete {
+        display: inline;
+      }
+
       button {
         margin-top: 20px;
         padding: 10px 20px;
@@ -72,6 +83,9 @@
         <li class="candidate">Claire</li>
         <li class="candidate">Jeremy</li>
       </ol>
+      <div id="unranked">
+        <p>Unranked candidates:</p>
+      </div>
 
       <button onclick="submitVote()" class="button-set">Submit Vote</button>
       <button onclick="submitBlank()" class="button-set" id="submit-blank">
