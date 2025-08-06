@@ -41,22 +41,28 @@ function openBallot() {
         scrambled.sort(() => Math.random() - 0.5);
     }
 
+    function derank(item) {
+        unranked.innerHTML += `<li class="candidate">${item.innerHTML}</li>`;
+        Array.from(unranked.querySelectorAll('li.candidate')).forEach(unranked_candidate => {
+            unranked_candidate.addEventListener('click', function () {
+                let candidateList = document.querySelector('#candidateList');
+                candidateList.innerHTML += `<li class="candidate">${unranked_candidate.innerHTML}</li>`;
+                Array.from(candidateList.children).forEach(ranked_candidate => {
+                    ranked_candidate.addEventListener('click', () => { derank(ranked_candidate) });
+                });
+                unranked_candidate.remove();
+            });
+        });
+        item.remove();
+    }
+
     for (let i = 0; i < scrambled.length; i++) {
         items[i].innerHTML = scrambled[i];
 
         const x_element = document.createElement('span');
         x_element.textContent = 'X';
         x_element.className = 'delete';
-        x_element.addEventListener('click', function () {
-            unranked.innerHTML += `<li class="candidate">${items[i].innerHTML}</li>`;
-            Array.from(unranked.querySelectorAll('li.candidate')).forEach(child => {
-                child.addEventListener('click', function () {
-                    document.querySelector('#candidateList').innerHTML += `<li class="candidate">${child.innerHTML}</li>`;
-                    child.remove();
-                });
-            });
-            items[i].remove();
-        });
+        x_element.addEventListener('click', () => { derank(items[i]) });
 
         items[i].appendChild(x_element);
     }
